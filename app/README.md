@@ -73,9 +73,9 @@ At the moment, the app is still under development. The current version includes:
    ```bash
    git clone https://github.com/bru-oliveirax/bark2d2-dog-feeder.git
    ```
-2. Navigate to the `/app` directory:
+2. Navigate to the `/app/src` directory:
    ```bash
-   cd app
+   cd app/scr
    ```
 3. Install dependencies:
    ```bash
