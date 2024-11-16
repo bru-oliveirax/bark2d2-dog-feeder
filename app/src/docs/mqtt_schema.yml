@@ -1,0 +1,161 @@
+asyncapi: 3.0.0
+info:
+  title: Bark2D2 MQTT API
+  version: 1.0.0
+  description: |
+    This document defines the MQTT topics and message schemas for the pet feeder system.
+    The topics cover authentication, feeding control, camera streaming, and ration monitoring.
+
+servers:
+  development:
+    url: "mqtt://dev-petfeeder-broker.local:1883"
+    description: "Development MQTT broker"
+
+  production:
+    url: "mqtt://broker.example.com"
+    description: "Production MQTT broker"
+
+channels:
+  petfeeder/{device_id}/auth/login:
+    description: "Topic for sending device credentials for authentication"
+    subscribe:
+      operationId: "sendCredentials"
+      summary: "Send credentials for authentication"
+      message:
+        contentType: "application/json"
+        payload:
+          $ref: "#/components/messages/auth_message"
+
+  petfeeder/{device_id}/auth/status:
+    description: "Topic for checking the authentication status of the device"
+    subscribe:
+      operationId: "checkAuthenticationStatus"
+      summary: "Check authentication status of the device"
+      message:
+        contentType: "application/json"
+        payload:
+          $ref: "#/components/messages/auth_status_message"
+
+  petfeeder/{device_id}/feed/manual:
+    description: "Topic for triggering manual feeding"
+    subscribe:
+      operationId: "manualFeeding"
+      summary: "Trigger manual feeding of the pet"
+      message:
+        contentType: "application/json"
+        payload:
+          $ref: "#/components/messages/feed_manual_message"
+
+  petfeeder/{device_id}/feed/scheduled:
+    description: "Topic for setting scheduled feeding"
+    subscribe:
+      operationId: "scheduledFeeding"
+      summary: "Set a schedule for automatic feeding"
+      message:
+        contentType: "application/json"
+        payload:
+          $ref: "#/components/messages/feed_scheduled_message"
+
+  petfeeder/{device_id}/camera/stream:
+    description: "Topic for receiving the real-time camera stream"
+    subscribe:
+      operationId: "cameraStream"
+      summary: "Receive camera stream when triggered from the app"
+      message:
+        contentType: "application/json"
+        payload:
+          $ref: "#/components/messages/camera_stream_message"
+
+  petfeeder/{device_id}/ration/level:
+    description: "Topic for retrieving the current ration level"
+    subscribe:
+      operationId: "rationLevel"
+      summary: "Get the current level of ration"
+      message:
+        contentType: "application/json"
+        payload:
+          $ref: "#/components/messages/ration_level_message"
+
+components:
+  messages:
+    auth_message:
+      description: "Message containing the device credentials for authentication"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              device_id:
+                type: string
+                description: "Unique device identifier"
+              token:
+                type: string
+                description: "Token for authentication"
+
+    auth_status_message:
+      description: "Message for the authentication status"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum: ["success", "failure"]
+                description: "Authentication status"
+
+    feed_manual_message:
+      description: "Message for triggering manual feeding"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              action:
+                type: string
+                enum: ["start", "stop"]
+                description: "Action to trigger manual feeding"
+
+    feed_scheduled_message:
+      description: "Message for scheduling automatic feeding"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              schedule:
+                type: string
+                description: "Time for feeding. Format: HH:mm (e.g., '12:00' for feeding at noon)"
+              amount:
+                type: integer
+                description: "Amount of food to be dispensed, in grams"
+              repeat:
+                type: boolean
+                description: "Whether the feeding should repeat periodically"
+              repeat_interval:
+                type: string
+                enum: ["daily", "weekly", "monthly"]
+                description: "Interval at which the feeding repeats. Only used if 'repeat' is true."
+
+    camera_stream_message:
+      description: "Message for controlling real-time camera stream"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              action:
+                type: string
+                enum: ["start", "stop"]
+                description: "Action to start or stop the camera stream"
+
+    ration_level_message:
+      description: "Message for retrieving the ration level"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              level:
+                type: integer
+                description: "Current level of the pet's ration (in grams or milliliters)"
