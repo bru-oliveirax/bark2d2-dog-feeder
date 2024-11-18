@@ -1,0 +1,107 @@
+# === General Project Files ===
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.out
+*.pid
+*.gz
+*.env
+.env.local
+*.iml
+*.ipr
+*.iws
+*.class
+*.code-workspace
+*.sublime-workspace
+*.sublime-project
+
+# === Git Tools ===
+.git/
+*.orig
+
+# === Firmware (ESP-IDF) ===
+/build/
+**/build/
+*.o
+*.obj
+*.elf
+*.map
+*.bin
+*.hex
+*.a
+*.d
+*.pyc
+*.pyo
+__pycache__/
+/.espressif/
+*.cmake
+*.idf_extension.json
+sdkconfig
+sdkconfig.old
+sdkconfig.*
+
+# === Flutter (Mobile App) ===
+# Build directories
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+pubspec.lock
+
+# Android
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/*.keystore
+android/app/build/
+
+# iOS
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/build/
+
+# macOS
+macos/Pods/
+macos/Runner.xcworkspace/
+macos/build/
+
+# Windows
+windows/flutter/ephemeral/
+
+# Linux
+linux/flutter/ephemeral/
+
+# Web
+web/flutter/
+web/manifest.json
+
+# Firebase
+firebase_app_id_file.json
+
+# === IDEs ===
+# VS Code
+.vscode/
+
+# JetBrains (IntelliJ, CLion, PyCharm, etc.)
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# === Documentation ===
+/Docs/*.aux
+/Docs/*.log
+/Docs/*.pdf
+/Docs/*.synctex.gz
+/Docs/*.toc
+/Docs/build/
+
+# === Operating System Files ===
+.DS_Store
+Thumbs.db
+desktop.ini
