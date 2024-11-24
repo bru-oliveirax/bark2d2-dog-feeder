@@ -1,5 +1,9 @@
 # Firmware
 
+<p align="center">
+    <img src="images/software_architecture.png" alt="App Interface" width="400" style="margin: 0 5px;"/>
+</p>
+
 ## Development Status
 
 The firmware is under development. We will implement an RTOS on the ESP32-S3 to manage tasks and optimize system performance.
